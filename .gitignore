@@ -1,0 +1,36 @@
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables (secrets/config — never commit)
+.env
+
+# Python bytecode / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Packaging / build artifacts
+*.egg-info/
+dist/
+build/
+
+# uv
+uv.lock.bak
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Linting cache
+.ruff_cache/
+
+# Editor / OS cruft
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
