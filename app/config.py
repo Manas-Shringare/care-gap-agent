@@ -1,18 +1,10 @@
-"""Application configuration, loaded from environment variables.
+from typing import Annotated
 
-Reads from a local `.env` file (see `.env.example` for the template) or from
-real environment variables when running in a container (e.g. AWS App Runner).
-"""
-
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import field_validator
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Typed, validated application settings.
-
-    Field names match the variable names in `.env.example` exactly.
-    """
-
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
@@ -28,7 +20,15 @@ class Settings(BaseSettings):
     AWS_REGION: str = "us-east-1"
 
     # Amazon Bedrock
-    BEDROCK_MODEL_ID: str = "anthropic.claude-3-haiku-20240307-v1:0"
+    BEDROCK_MODEL_ID: str = "amazon.nova-lite-v1:0"
+    SUPPORTED_MODEL_IDS: Annotated[list[str], NoDecode] = ["amazon.nova-lite-v1:0"]
+
+    @field_validator("SUPPORTED_MODEL_IDS", mode="before")
+    @classmethod
+    def _split_model_ids(cls, v):
+        if isinstance(v, str):
+            return [m.strip() for m in v.split(",") if m.strip()]
+        return v
 
     # Amazon DynamoDB
     DYNAMODB_TABLE_NAME: str = "prompttrace-requests"

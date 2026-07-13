@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from app.api.routes import router as prompts_router
 from app.config import settings
 from app.logging import configure_logging
 
@@ -28,6 +29,8 @@ app = FastAPI(
     version="0.1.0",
     lifespan=lifespan,
 )
+
+app.include_router(prompts_router)
 
 
 @app.get("/health")
