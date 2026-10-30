@@ -1,4 +1,4 @@
-"""Structured JSON logging configuration for PromptTrace.
+"""Structured JSON logging configuration for care-gap-agent.
 
 Every log record is rendered as a single-line JSON object so that logs are
 directly queryable in CloudWatch Logs Insights (or any log aggregator) by
@@ -8,7 +8,7 @@ field, rather than requiring text parsing.
 import json
 import logging
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 # Attributes that exist on every stdlib LogRecord. Anything NOT in this set
 # was passed in via `extra={...}` by the caller and should be surfaced in
@@ -21,7 +21,7 @@ class JSONFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         payload = {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "level": record.levelname,
             "logger": record.name,
             "message": record.getMessage(),

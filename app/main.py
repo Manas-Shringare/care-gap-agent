@@ -1,4 +1,4 @@
-"""FastAPI application entrypoint for PromptTrace."""
+"""FastAPI application entrypoint for care-gap-agent."""
 
 import logging
 from contextlib import asynccontextmanager
@@ -16,15 +16,15 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     configure_logging(level=settings.LOG_LEVEL)
     logger.info(
-        "Starting PromptTrace",
+        "Starting care-gap-agent",
         extra={"environment": settings.ENVIRONMENT, "aws_region": settings.AWS_REGION},
     )
     yield
-    logger.info("Shutting down PromptTrace")
+    logger.info("Shutting down care-gap-agent")
 
 
 app = FastAPI(
-    title="PromptTrace",
+    title="care-gap-agent",
     description="Observability toolkit for Amazon Bedrock applications.",
     version="0.1.0",
     lifespan=lifespan,

@@ -1,6 +1,6 @@
 """Pydantic request/response schemas for the /v1/prompts endpoint.
 
-These models define PromptTrace's public API contract. They intentionally
+These models define care-gap-agent's public API contract. They intentionally
 have no knowledge of runtime configuration (e.g. which models are supported)
 — that validation belongs in the service layer, not the schema layer.
 """
