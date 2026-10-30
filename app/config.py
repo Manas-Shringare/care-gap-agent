@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     )
 
     # Application
-    APP_NAME: str = "prompttrace"
+    APP_NAME: str = "care-gap-agent"
     ENVIRONMENT: str = "local"
     LOG_LEVEL: str = "INFO"
 
@@ -31,7 +31,7 @@ class Settings(BaseSettings):
         return v
 
     # Amazon DynamoDB
-    DYNAMODB_TABLE_NAME: str = "prompttrace-requests"
+    DYNAMODB_TABLE_NAME: str = "caregap-audit"
 
 
 settings = Settings()

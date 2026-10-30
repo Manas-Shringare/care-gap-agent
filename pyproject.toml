@@ -1,5 +1,5 @@
 [project]
-name = "prompttrace"
+name = "care-gap-agent"
 version = "0.1.0"
 description = "Observability toolkit for Amazon Bedrock applications."
 readme = "README.md"

@@ -1,6 +1,6 @@
 """BedrockService: wraps Amazon Bedrock's Converse API.
 
-Responsible for translating PromptTrace's simple public request shape into
+Responsible for translating care-gap-agent's simple public request shape into
 the Bedrock Converse API payload, invoking the model, capturing inference
 latency, and parsing the response back into plain text.
 
