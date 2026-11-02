@@ -6,6 +6,7 @@ have no knowledge of runtime configuration (e.g. which models are supported)
 """
 
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -39,6 +40,30 @@ class PromptResponse(BaseModel):
     )
     total_request_latency_ms: float = Field(
         ...,
-        description="End-to-end time from request received to response returned, in milliseconds.",
+        description=(
+            "Time from request received through model invocation, excluding trace "
+            "persistence, in milliseconds."
+        ),
+    )
+    timestamp: datetime = Field(..., description="UTC timestamp when the response was generated.")
+
+
+class PromptRecord(BaseModel):
+    """The persisted audit record of a single prompt invocation."""
+
+    request_id: str = Field(..., description="ULID uniquely identifying this invocation.")
+    sk: Literal["REQUEST"] = Field("REQUEST", description="Sort key of the request item.")
+    model_id: str = Field(..., description="The model that served this request.")
+    prompt: str = Field(..., description="The raw text prompt sent to the model.")
+    completion: str = Field(..., description="The model's generated response text.")
+    inference_latency_ms: float = Field(
+        ..., description="Time spent waiting on the Bedrock Converse call, in milliseconds."
+    )
+    total_request_latency_ms: float = Field(
+        ...,
+        description=(
+            "Time from request received through model invocation, excluding trace "
+            "persistence, in milliseconds."
+        ),
     )
     timestamp: datetime = Field(..., description="UTC timestamp when the response was generated.")
