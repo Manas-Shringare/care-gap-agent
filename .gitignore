@@ -9,6 +9,7 @@ venv/
 __pycache__/
 *.py[cod]
 *$py.class
+*.zip
 
 # Packaging / build artifacts
 *.egg-info/
