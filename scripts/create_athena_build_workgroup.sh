@@ -6,7 +6,7 @@ aws athena create-work-group --name caregap-build \
   --description "admin builds (CTAS into silver); not for the agent" \
   --configuration "{
     \"ResultConfiguration\": {
-      \"OutputLocation\": \"s3://${BUCKET}/athena-results/\",
+      \"OutputLocation\": \"s3://${BUCKET}/athena-results/build/\",
       \"EncryptionConfiguration\": {\"EncryptionOption\": \"SSE_S3\"}
     },
     \"EnforceWorkGroupConfiguration\": false,
