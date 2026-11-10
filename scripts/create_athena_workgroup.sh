@@ -6,7 +6,7 @@ aws athena create-work-group --name caregap \
   --description "care-gap-agent queries" \
   --configuration "{
     \"ResultConfiguration\": {
-      \"OutputLocation\": \"s3://${BUCKET}/athena-results/\",
+      \"OutputLocation\": \"s3://${BUCKET}/athena-results/caregap/\",
       \"EncryptionConfiguration\": {\"EncryptionOption\": \"SSE_S3\"}
     },
     \"EnforceWorkGroupConfiguration\": true,

@@ -1,0 +1,55 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AthenaCaregapWorkgroupOnly",
+        "Effect": "Allow",
+        "Action": [
+          "athena:StartQueryExecution",
+          "athena:GetQueryExecution",
+          "athena:GetQueryResults",
+          "athena:StopQueryExecution"
+        ],
+        "Resource": "arn:aws:athena:us-east-1:__ACCOUNT_ID__:workgroup/caregap"
+      },
+      {
+        "Sid": "GlueReadSilverAppDeid",
+        "Effect": "Allow",
+        "Action": ["glue:GetDatabase", "glue:GetTable", "glue:GetPartitions"],
+        "Resource": [
+          "arn:aws:glue:us-east-1:__ACCOUNT_ID__:catalog",
+          "arn:aws:glue:us-east-1:__ACCOUNT_ID__:database/caregap_silver",
+          "arn:aws:glue:us-east-1:__ACCOUNT_ID__:table/caregap_silver/*",
+          "arn:aws:glue:us-east-1:__ACCOUNT_ID__:database/caregap_app",
+          "arn:aws:glue:us-east-1:__ACCOUNT_ID__:table/caregap_app/*",
+          "arn:aws:glue:us-east-1:__ACCOUNT_ID__:database/caregap_deid",
+          "arn:aws:glue:us-east-1:__ACCOUNT_ID__:table/caregap_deid/*"
+        ]
+      },
+      {
+        "Sid": "ReadSilverObjects",
+        "Effect": "Allow",
+        "Action": "s3:GetObject",
+        "Resource": "arn:aws:s3:::__DATA_BUCKET__/silver/*"
+      },
+      {
+        "Sid": "ListOnlySilverAndAppResults",
+        "Effect": "Allow",
+        "Action": "s3:ListBucket",
+        "Resource": "arn:aws:s3:::__DATA_BUCKET__",
+        "Condition": {"StringLike": {"s3:prefix": ["silver/*", "athena-results/caregap/*"]}}
+      },
+      {
+        "Sid": "BucketLocation",
+        "Effect": "Allow",
+        "Action": "s3:GetBucketLocation",
+        "Resource": "arn:aws:s3:::__DATA_BUCKET__"
+      },
+      {
+        "Sid": "AppQueryResults",
+        "Effect": "Allow",
+        "Action": ["s3:PutObject", "s3:GetObject", "s3:AbortMultipartUpload", "s3:ListMultipartUploadParts"],
+        "Resource": "arn:aws:s3:::__DATA_BUCKET__/athena-results/caregap/*"
+      }
+    ]
+  }
